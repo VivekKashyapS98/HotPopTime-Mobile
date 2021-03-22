@@ -1,0 +1,3 @@
+# HotPopTime
+
+A user friendly app for Movie freaks...
