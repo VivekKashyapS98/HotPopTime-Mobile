@@ -17,31 +17,17 @@ export function fetchDetails(type = "movie", id: any, language = "en-US") {
 }
 
 //movieList = popular, now_playing, latest, top_rated, upcoming
-export function fetchList(
-  type = "movie",
-  movieList = "popular",
-  page = 1,
-  language = "en-US"
-) {
+export function fetchList(type = "movie", movieList = "popular", page = 1) {
   return new Promise((resolve, reject) => {
-    apiCall(
-      `${type}/${movieList}?api_key=${api_key}&language=${language}&page=${page}`
-    )
+    apiCall(`${type}/${movieList}?api_key=${api_key}&page=${page}`)
       .then((data) => resolve(data))
       .catch((err) => reject(err));
   });
 }
 
-export function fetchSimilarList(
-  type = "movie",
-  id: any,
-  page = 1,
-  language = "en-US"
-) {
+export function fetchSimilarList(type = "movie", id: any, page = 1) {
   return new Promise((resolve, reject) => {
-    apiCall(
-      `${type}/${id}/similar?api_key=${api_key}&language=${language}&page=${page}`
-    )
+    apiCall(`${type}/${id}/similar?api_key=${api_key}&page=${page}`)
       .then((data) => resolve(data))
       .catch((err) => reject(err));
   });
@@ -49,13 +35,13 @@ export function fetchSimilarList(
 
 export function searchQuery(
   type = "movie",
-  string: any,
-  page = 1,
-  language = "en-US"
+  string: string,
+  year: number,
+  page = 1
 ) {
   let searchURL = `search/${type}?api_key=${api_key}&query=${string}&page=${page}&include_adult=true`;
-  if (language) {
-    searchURL = searchURL.concat(`&language=${language}`);
+  if (year) {
+    searchURL = searchURL.concat(`&year=${year}`);
   }
   return new Promise((resolve, reject) => {
     apiCall(searchURL)
